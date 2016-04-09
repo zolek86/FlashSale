@@ -16,6 +16,7 @@ module.exports = function(io, socketId) {
             tempCallback = cb;
             callback = ioCallback.bind(self);
             var path =  GEO_RESOURCE + prepareUrlParams(addressObject);
+            console.log(path);
             http.get(
                 {
                     host: GEO_URL,
@@ -40,18 +41,9 @@ function ioCallback(response) {
     callback = function () {
         try {
             var gis = parseGoogleApiResponse(responseData);
-            console.log('sending GIS event to user: '+ self.socketId);
-            self.io.sockets.connected[self.socketId].gis = gis;
-            self.io.sockets.connected[self.socketId].emit(GIS_EVENT_NAME,{
-                error: false,
-                gis: gis
-            });
             tempCallback(gis);
         } catch(e) {
             console.log(e.message);
-            self.io.sockets.connected[self.socketId].emit(GIS_EVENT_NAME,{
-                error: true
-            });
         }
     };
 
@@ -66,6 +58,7 @@ function parseGoogleApiResponse(response) {
     }
 
     if (json.status != "OK") {
+        console.log(json.status);
         throw new Error("jebło w api");
     }
     json = json.results[0];
@@ -84,5 +77,5 @@ function prepareUrlParams(addressObject)
             address += "+" + escape(addressObject[element]);
         }
     }
-    return address + "&language=pl-PL";
+    return decodeURI(address) + "&language=pl-PL";
 }

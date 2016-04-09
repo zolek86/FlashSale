@@ -112,11 +112,19 @@
       <!-- endbuild -->
       <script src="/socket.io/socket.io.js"></script>
       <script>
-          var socket = io('http://localhost:3000');
-          socket.emit('sendGis',{postalCode: "59-300", city: "Lubin"});
-          socket.on('gis',function(data){
-            console.log(data.gis);
-          })
+        var socket = io('http://localhost:3000');
+        socket.emit('sendGis',{postalCode: "59-300", city: "Lubin"});
+        socket.on('gis',function(data){
+          console.log(data.gis);
+        });
+        $('#findLocation').click(function(){
+          var location = {
+            city : encodeURI($("#inputMiasto").val()),
+            street : encodeURI($("#inputUlica").val()),
+            streetNumber : encodeURI($("#inputNumer").val())
+          };
+          socket.emit('sendGis',WindowBase64.atob(location));
+        });
       </script>
     </body>
     </html>

@@ -13,10 +13,14 @@ io.on('connection', function(socket){
     console.log("user connected: "+socket.id);
 
     socket.on('sendGis', function(data) {
+        data = WindowBase64.btoa(data);
         var location = new require('./modules/location')(io, socket.id);
         callback = function(gis) {
             socket.gis = gis;
-            console.log(socket.gis);
+            socket.emit('gis',{
+                error: false,
+                gis: gis
+            });
         };
         location.getLocation(callback, data);
     });
