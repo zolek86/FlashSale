@@ -26,7 +26,7 @@ var flashSale = {
 		msgSpot.html('');
 
 		if(locationData.error === false){
-			msgSpot.append(this.appLocationTemplate(locationData.gis));
+			msgSpot.append(this.appLocationTemplate(locationData.gis.lat, locationData.gis.lng, locationData.gis.location));
 		} else {
 			msgSpot.append(msgSpot);
 		}
