@@ -14,16 +14,17 @@ io.on('connection', function(socket){
 
     socket.on('sendGis', function(data) {
         var location = new require('./modules/location')(io, socket.id);
-        var callbackowane = location.getLocation(data);
-        console.log(callbackowane);
-        socket.gis = callbackowane;
+        callback = function(gis) {
+            socket.gis = gis;
+            console.log(socket.gis);
+        };
+        location.getLocation(callback, data);
     });
 
     socket.on('disconnect', function(){
         console.log("user disconnected: "+socket.id);
     });
 });
-
 
 http.listen(3000, function(){
     console.log('listening on *:3000');
