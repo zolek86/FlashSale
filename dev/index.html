@@ -38,7 +38,7 @@
 
     <div class="jumbotron">
         <h1>Witaj!</h1>
-        <p class="lead">Zapraszamy do naszej uber Appki.</p>
+        <p class="lead">Zapraszamy do naszej Appki.</p>
         <p><a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#conectUser">Loklizuj!</a></p>
     </div>
 
@@ -120,11 +120,11 @@
 
 <!-- build:js scripts/main.js -->
 <script src="js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
 <!-- endbuild -->
 <script src="/socket.io/socket.io.js"></script>
+<script src="js/main.js"></script>
 <script>
-    var socket = io('http://localhost:3000');
+/*    var socket = io('http://localhost:3000');
     socket.on('gis', function (data) {
         console.log(data);
     });
@@ -135,7 +135,7 @@
             streetNumber: $("#inputNumer").val()
         };
         socket.emit('sendGis', location);
-    });
+    });*/
 </script>
 </body>
 </html>
