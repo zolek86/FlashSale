@@ -11,7 +11,7 @@ module.exports = function(io, socketId) {
     this.io = io;
     this.socketId = socketId;
     var self = this;
-    return {
+        return {
         getLocation: function(cb, addressObject) {
             tempCallback = cb;
             callback = ioCallback.bind(self);
