@@ -55,6 +55,7 @@
               <h4 class="modal-title" id="myModalLabel">Podaj lokazlizacje</h4>
             </div>
             <div class="modal-body">
+              <form id="locationForm" >
               <!-- input 1-->
               <div class="form-group clearfix">
                 <label for="inputMiasto" class="col-sm-2 control-label">Miasto</label>
@@ -76,6 +77,7 @@
                   <input type="Numer" class="form-control" id="inpuNumer" placeholder="Numer">
                 </div>
               </div>
+                </form>
             </div>
             <div class="modal-footer">
               <p><a href="#" id="findLocation" class="btn btn-success btn-lg active" role="button">Znajdź</a></p>
@@ -113,17 +115,16 @@
       <script src="/socket.io/socket.io.js"></script>
       <script>
         var socket = io('http://localhost:3000');
-        socket.emit('sendGis',{postalCode: "59-300", city: "Lubin"});
         socket.on('gis',function(data){
           console.log(data.gis);
         });
         $('#findLocation').click(function(){
           var location = {
-            city : encodeURI($("#inputMiasto").val()),
-            street : encodeURI($("#inputUlica").val()),
-            streetNumber : encodeURI($("#inputNumer").val())
+            city : $("#inputMiasto").val(),
+            street : $("#inputUlica").val(),
+            streetNumber : $("#inputNumer").val()
           };
-          socket.emit('sendGis',WindowBase64.atob(location));
+          socket.emit('sendGis',location);
         });
       </script>
     </body>

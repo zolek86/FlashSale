@@ -2,25 +2,27 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var location;
 
-app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname + '/dev'));
 
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/app/index.html');
+    res.sendFile(__dirname + '/dev/index.html');
 });
 
 io.on('connection', function(socket){
     console.log("user connected: "+socket.id);
 
     socket.on('sendGis', function(data) {
-        data = WindowBase64.btoa(data);
-        var location = new require('./modules/location')(io, socket.id);
-        callback = function(gis) {
-            socket.gis = gis;
+        location = new require('./modules/location')(io, socket.id);
+        callback = function(response) {
             socket.emit('gis',{
-                error: false,
-                gis: gis
+                error: response.error,
+                gis: response.data
             });
+            if (!response.error) {
+                socket.gis = response.gis;
+            }
         };
         location.getLocation(callback, data);
     });

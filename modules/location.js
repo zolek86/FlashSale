@@ -41,9 +41,15 @@ function ioCallback(response) {
     callback = function () {
         try {
             var gis = parseGoogleApiResponse(responseData);
-            tempCallback(gis);
+            tempCallback({
+                error: false,
+                data: gis
+            });
         } catch(e) {
-            console.log(e.message);
+            tempCallback({
+                error: true,
+                data: {}
+            });
         }
     };
 
@@ -51,6 +57,9 @@ function ioCallback(response) {
 }
 
 function parseGoogleApiResponse(response) {
+    if (response.statusCode != 200) {
+        throw new Error("Kod inny niż 200");
+    }
     try {
         var json = JSON.parse(response);
     } catch(e) {
@@ -59,7 +68,7 @@ function parseGoogleApiResponse(response) {
 
     if (json.status != "OK") {
         console.log(json.status);
-        throw new Error("jebło w api");
+        throw new Error("Status inny niż OK");
     }
     json = json.results[0];
     return {
@@ -71,11 +80,13 @@ function parseGoogleApiResponse(response) {
 
 function prepareUrlParams(addressObject)
 {
-    var address = "address=";
+    var address = "";
     for(element in addressObject) {
-        if(addressObject.hasOwnProperty(element)) {
-            address += "+" + escape(addressObject[element]);
+        if(addressObject.hasOwnProperty(element) && addressObject[element]!="" && addressObject[element] != undefined) {
+            address += " " + addressObject[element];
         }
     }
-    return decodeURI(address) + "&language=pl-PL";
+    var route = "address=" + address.split(' ').join('+') + "&language=pl-PL";
+    console.log(route);
+    return route;
 }

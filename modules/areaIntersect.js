@@ -9,7 +9,7 @@ module.exports = function() {
 
             var distanceBetweenAB = sqrt(pow(A.x - B.x) + pow(A.y - B.y));
 
-            return distanceBetweenAB <= distance;
+            return (distanceBetweenAB < distance);
         }
     }
 };
