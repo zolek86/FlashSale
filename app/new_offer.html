@@ -28,18 +28,42 @@
       <div class="container">
         <div class="header">
           <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="new_offer.html">Nowa oferta</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="new_offer.html">Nowa oferta</a></li>
             <li><a href="product_list.html">Lista Ofert</a></li>
           </ul>
           <h3 class="text-muted">FlashSale</h3>
         </div>
 
-        <div class="jumbotron">
-          <h1>Witaj!</h1>
-          <p class="lead">Zapraszamy do naszej uber Appki.</p>
-          <p><a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#conectUser">Start!</a></p>
+        <div class="main-content">
+          <div class="row">
+            <div class="col-xs-offset-2 col-xs-8">
+              <form id="newOfferForm" class="clearfix" role="form">
+                <div class="form-group">
+                  <label for="offerName">Nazwa oferty</label>
+                  <input type="text" class="form-control" id="offerName" placeholder="Wpisz nazwę oferty">
+                </div>
+                <div class="form-group">
+                  <label for="offerPrice">Cena</label>
+                  <input type="text" class="form-control" id="offerPrice" placeholder="Wpisz cenę">
+                </div>
+                <div class="form-group">
+                  <label for="offerImg">Załączanie pliku</label>
+                  <input type="file" id="offerImg">
+                  <!-- <p class="help-block">Tekst podpowiedzi</p> -->
+                </div>
+                <!-- <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Czy aktywna ?
+                  </label>
+                </div> -->
+                <button type="submit" class="btn btn-success btn-lg pull-right">Wyślij!</button>
+              </form>
+              <br>
+            </div>
+          </div>
         </div>
+
 
         <div class="footer">
           <p>♥ from Mroczne Owieczki team</p>
