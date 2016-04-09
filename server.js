@@ -12,18 +12,23 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
     console.log("user connected: "+socket.id);
 
-    socket.on('sendGis', function(data) {
+    // socket.on('sendGis', function(data) {
         var location = new require('./modules/location')(io, socket.id);
-        var callbackowane = location.getLocation(data);
-        console.log(callbackowane);
-        socket.gis = callbackowane;
-    });
+        callback = function(gis) {
+            socket.gis = gis;
+            console.log(socket.gis);
+        };
+        location.getLocation(callback, {
+                postalCode: "59-300",
+                city: "Lubin"
+        });
+    
+    // });
 
     socket.on('disconnect', function(){
         console.log("user disconnected: "+socket.id);
     });
 });
-
 
 http.listen(3000, function(){
     console.log('listening on *:3000');

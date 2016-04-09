@@ -4,6 +4,7 @@ var GIS_EVENT_NAME = 'gis'
     , io
     , socketId
     , http = require('https')
+    , tempCallback
 ;
 
 module.exports = function(io, socketId) {
@@ -11,9 +12,9 @@ module.exports = function(io, socketId) {
     this.socketId = socketId;
     var self = this;
     return {
-        getLocation: function(addressObject) {
-            callback = ioCallback;
-            callback.bind(self);
+        getLocation: function(cb, addressObject) {
+            tempCallback = cb;
+            callback = ioCallback.bind(self);
             var path =  GEO_RESOURCE + prepareUrlParams(addressObject);
             http.get(
                 {
@@ -24,8 +25,6 @@ module.exports = function(io, socketId) {
             ).on('error', function (e) {
                 console.log("Got error: " + e);
             });
-
-            return callack; 
         }
     }
 };
@@ -46,18 +45,17 @@ function ioCallback(response) {
             self.io.sockets.connected[self.socketId].emit(GIS_EVENT_NAME,{
                 error: true,
                 gis: gis
-            })
+            });
+            tempCallback(gis);
         } catch(e) {
             console.log(e.message);
             self.io.sockets.connected[self.socketId].emit(GIS_EVENT_NAME,{
                 error: true
-            })
+            });
         }
     };
 
     response.on('end', callback);
-
-    return callback();
 }
 
 function parseGoogleApiResponse(response) {
