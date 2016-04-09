@@ -67,8 +67,7 @@ function parseGoogleApiResponse(response) {
     }
 
     if (json.status != "OK") {
-        console.log(json.status);
-        throw new Error("Status inny niż OK");
+        throw new Error("Status inny niż OK: "+ json.status);
     }
     json = json.results[0];
     return {
