@@ -74,9 +74,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('disconnect', function(){
-        // offers.forEach(function(offer){
         //todo  UNSET OFFERS
-        // };
         console.log("user disconnected: "+socket.id);
     });
 });

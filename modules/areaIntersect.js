@@ -4,8 +4,8 @@ module.exports = function() {
      */
     return {
         areTwoPointsNotFurtherThatDistance: function(firstPoint, secondPoint, distance) {
-            A = {x : firstPoint.lat, y: firstPoint.lat};
-            B = {x : secondPoint.lat, y: secondPoint.lat};
+            A = {x : firstPoint.lng, y: firstPoint.lat};
+            B = {x : secondPoint.lng, y: secondPoint.lat};
 
             var distanceBetweenAB = sqrt(pow(A.x - B.x) + pow(A.y - B.y));
 
