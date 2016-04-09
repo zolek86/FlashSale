@@ -13,7 +13,7 @@ module.exports = function(io, socketId) {
         return {
         getLocation: function(cb, addressObject) {
             tempCallback = cb;
-            callback = ioCallback.bind(self);
+            callback = responseHandler.bind(self);
             var path =  GEO_RESOURCE + prepareUrlParams(addressObject);
             http.get(
                 {
@@ -28,7 +28,7 @@ module.exports = function(io, socketId) {
     }
 };
 
-function ioCallback(response) {
+function responseHandler(response) {
     if (response.statusCode != 200) {
         throw new Error("Http response code: "+response.statusCode);
     }
