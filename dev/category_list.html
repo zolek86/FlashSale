@@ -28,59 +28,62 @@
       <div class="container">
         <div class="header">
           <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="new_offer.html">Nowa oferta</a></li>
-            <li><a href="product_list.html">Lista Ofert</a></li>
+            <li class="active"><a href="category_list.html">Lista Ofert</a></li>
           </ul>
           <h3 class="text-muted">FlashSale</h3>
         </div>
 
-        <div class="jumbotron">
-          <h1>Witaj!</h1>
-          <p class="lead">Zapraszamy do naszej uber Appki.</p>
-          <p><a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#conectUser">Start!</a></p>
+        <div class="row">
+          <div class="col-xs-6">
+            <div href="#" class="thumbnail">
+              <img src="images/meble.jpg" alt="oferty_Meble" />
+              <div class="caption">
+                <center>
+                  <h4>Meble</h4>
+                  <p><a href="" class="btn btn-danger">Wejście</a></p>
+                </center>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div href="#" class="thumbnail">
+              <img src="images/buty.jpg" alt="oferty_Buty" />
+              <div class="caption">
+                <center>
+                  <h4>Buty</h4>
+                  <p><a href="formularz_2_buty.html" class="btn btn-danger">Wejście</a></p>
+                </center>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div href="#" class="thumbnail">
+              <img src="images/samochody.jpg" alt="oferty_Samochody" />
+              <div class="caption">
+                <center>
+                  <h4>Samochody</h4>
+                  <p><a href="formularz_2_samochody.html" class="btn btn-danger">Wejście</a></p>
+                </center>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div href="#" class="thumbnail">
+              <img src="images/rowery.jpg" alt="oferty_Rowery" />
+              <div class="caption">
+                <center>
+                  <h4>Rowery</h4>
+                  <p><a href="formularz_2_rowery.html" class="btn btn-danger">Wejście</a></p>
+                </center> 
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="footer">
           <p>♥ from Mroczne Owieczki team</p>
-        </div>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="conectUser" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
-              <h4 class="modal-title" id="myModalLabel">Podaj lokazlizacje</h4>
-            </div>
-            <div class="modal-body">
-              <!-- input 1-->
-              <div class="form-group clearfix">
-                <label for="inputMiasto" class="col-sm-2 control-label">Miasto</label>
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="inputMiasto" placeholder="Miasto">
-                </div>
-              </div>
-              <!-- input 2-->
-              <div class="form-group clearfix">
-                <label for="inputUlica" class="col-sm-2 control-label">Ulica</label>
-                <div class="col-sm-10">
-                  <input type="ulica" class="form-control" id="inputUlica" placeholder="Ulica">
-                </div>
-              </div>
-              <!-- input 3-->
-              <div class="form-group clearfix">
-                <label for="inputNumer" class="col-sm-2 control-label">Numer</label>
-                <div class="col-sm-10">
-                  <input type="Numer" class="form-control" id="inpuNumer" placeholder="Numer">
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <p><a href="#" class="btn btn-success btn-lg active" role="button">Znajdź</a></p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -108,7 +111,7 @@
 
       <!-- build:js scripts/main.js -->
       <script src="js/bootstrap.min.js"></script>
-      <script src="js/main.js"></script>
+      <script src="js/main.js"></script>h
       <script>
         var socket = io('http://localhost:3000');
       </script>
