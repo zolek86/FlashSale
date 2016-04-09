@@ -2,15 +2,15 @@
   "name": "flashsale",
   "private": true,
   "dependencies": {
-    "bootstrap-sass": "~3.3.5",
-    "modernizr": "~2.8.1"
+    "bootstrap": "~3.3.5"
   },
   "overrides": {
-    "bootstrap-sass": {
+    "bootstrap": {
       "main": [
-        "assets/stylesheets/_bootstrap.scss",
-        "assets/fonts/bootstrap/*",
-        "assets/javascripts/bootstrap.js"
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js",
+        "dist/fonts/*"
       ]
     }
   },

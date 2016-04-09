@@ -1,4 +1,5 @@
-var GEO_URL = "maps.googleapis.com"
+var GIS_EVENT_NAME = 'gis'
+    , GEO_URL = "maps.googleapis.com"
     , GEO_RESOURCE = "/maps/api/geocode/json?"
     , io
     , socketId
@@ -36,12 +37,13 @@ function ioCallback(response) {
         try {
             var gis = parseGoogleApiResponse(response);
             console.log('sending GIS event to user: '+ socketId);
-            io.sockets.socket(this.socketId).emit('gis',{
+            console.log(io);
+            io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
                 error: true,
                 gis: gis
             })
         } catch(e) {
-            io.sockets.socket(this.socketId).emit('getAddress',{
+            io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
                 error: true
             })
         }
