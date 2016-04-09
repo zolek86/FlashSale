@@ -126,7 +126,7 @@
 <script>
     var socket = io('http://localhost:3000');
     socket.on('gis', function (data) {
-        console.log(data.gis);
+        console.log(data);
     });
     $('#findLocation').click(function () {
         var location = {

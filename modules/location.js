@@ -16,7 +16,6 @@ module.exports = function(io, socketId) {
             tempCallback = cb;
             callback = ioCallback.bind(self);
             var path =  GEO_RESOURCE + prepareUrlParams(addressObject);
-            console.log(path);
             http.get(
                 {
                     host: GEO_URL,
@@ -31,6 +30,9 @@ module.exports = function(io, socketId) {
 };
 
 function ioCallback(response) {
+    if (response.statusCode != 200) {
+        throw new Error("Kod odpowiedzi: "+response.statusCode);
+    }
     var self = this;
     var responseData = '';
     response.resume();
@@ -46,6 +48,7 @@ function ioCallback(response) {
                 data: gis
             });
         } catch(e) {
+            console.log(e.message);
             tempCallback({
                 error: true,
                 data: {}
@@ -57,9 +60,6 @@ function ioCallback(response) {
 }
 
 function parseGoogleApiResponse(response) {
-    if (response.statusCode != 200) {
-        throw new Error("Kod inny niż 200");
-    }
     try {
         var json = JSON.parse(response);
     } catch(e) {
