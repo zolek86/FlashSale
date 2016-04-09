@@ -1,7 +1,7 @@
-var GEO_URL = "https://maps.googleapis.com/"
-    , GEO_RESOURCE = "maps/api/geocode/json?"
+var GEO_URL = "maps.googleapis.com"
+    , GEO_RESOURCE = "/maps/api/geocode/json?"
     , io
-    , http = require('http')
+    , http = require('https')
 ;
 
 module.exports = function(io) {
@@ -23,9 +23,9 @@ module.exports = function(io) {
 };
 
 function ioCallback(response) {
-    console.log("Got response: "+resposne.statusCode);
+    console.log("Got response: "+response.statusCode);
     // consume response body
-    res.resume();
+    response.resume();
     // var str = '';
     // response.on('data', function (chunk) {
     //     str += chunk;
