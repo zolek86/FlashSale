@@ -19,41 +19,49 @@ module.exports = function(io, socketId) {
                 },
                 ioCallback
             ).on('error', function (e) {
-                console.log("Got error: " + e.message);
+                console.log("Got error: " + e);
             })
         }
     }
 };
 
 function ioCallback(response) {
-    var str = '';
+    var responseData = '';
     console.log("Got address response code: "+response.statusCode);
     response.resume();
     response.on('data', function (chunk) {
-        str += chunk;
+        responseData += chunk;
     });
 
     response.on('end', function () {
         try {
-            var gis = parseGoogleApiResponse(response);
-            console.log('sending GIS event to user: '+ socketId);
+            var gis = parseGoogleApiResponse(responseData);
+            console.log(gis);
+            console.log('sending GIS event to user: '+ this.socketId);
             console.log(io);
-            io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
-                error: true,
-                gis: gis
-            })
+            // io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
+            //     error: true,
+            //     gis: gis
+            // })
         } catch(e) {
-            io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
-                error: true
-            })
+            console.log(e);
+            // io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
+            //     error: true
+            // })
         }
     });
 }
 
 function parseGoogleApiResponse(response) {
-    var json = JSON.parse(response);
-    if (json.status !== "OK") {
-        throw "Dupa, api googlowe nie zwróciło wyników";
+    try {
+        var json = JSON.parse(response);
+    } catch(e) {
+        console.log(e.message);
+        console.log("Bad JSON string to parse from api");
+    }
+
+    if (json.status != "OK") {
+        throw new Error("jebło w api");
     }
     json = json.results[0];
     return {
