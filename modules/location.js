@@ -9,47 +9,55 @@ var GIS_EVENT_NAME = 'gis'
 module.exports = function(io, socketId) {
     this.io = io;
     this.socketId = socketId;
+    var self = this;
     return {
         getLocation: function(addressObject) {
+            callback = ioCallback;
+            callback.bind(self);
             var path =  GEO_RESOURCE + prepareUrlParams(addressObject);
             http.get(
                 {
                     host: GEO_URL,
                     path: path
                 },
-                ioCallback
+                callback
             ).on('error', function (e) {
                 console.log("Got error: " + e);
-            })
+            });
+
+            return callack; 
         }
     }
 };
 
 function ioCallback(response) {
+    var self = this;
     var responseData = '';
-    console.log("Got address response code: "+response.statusCode);
     response.resume();
     response.on('data', function (chunk) {
         responseData += chunk;
     });
 
-    response.on('end', function () {
+    callback = function () {
         try {
             var gis = parseGoogleApiResponse(responseData);
-            console.log(gis);
-            console.log('sending GIS event to user: '+ this.socketId);
-            console.log(io);
-            // io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
-            //     error: true,
-            //     gis: gis
-            // })
+            console.log('sending GIS event to user: '+ self.socketId);
+            self.io.sockets.connected[self.socketId].gis = gis;
+            self.io.sockets.connected[self.socketId].emit(GIS_EVENT_NAME,{
+                error: true,
+                gis: gis
+            })
         } catch(e) {
-            console.log(e);
-            // io.sockets.connected[this.socketId].emit(GIS_EVENT_NAME,{
-            //     error: true
-            // })
+            console.log(e.message);
+            self.io.sockets.connected[self.socketId].emit(GIS_EVENT_NAME,{
+                error: true
+            })
         }
-    });
+    };
+
+    response.on('end', callback);
+
+    return callback();
 }
 
 function parseGoogleApiResponse(response) {
@@ -57,7 +65,6 @@ function parseGoogleApiResponse(response) {
         var json = JSON.parse(response);
     } catch(e) {
         console.log(e.message);
-        console.log("Bad JSON string to parse from api");
     }
 
     if (json.status != "OK") {
@@ -79,5 +86,5 @@ function prepareUrlParams(addressObject)
             address += "+" + escape(addressObject[element]);
         }
     }
-    return address;
+    return address + "&language=pl-PL";
 }
