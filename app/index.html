@@ -120,7 +120,11 @@
       <!-- endbuild -->
       <script src="/socket.io/socket.io.js"></script>
       <script>
-        var socket = io('http://localhost:3000');
+          var socket = io('http://localhost:3000');
+          socket.emit('sendGis',{postalCode: "59-300", city: "Lubin"});
+          socket.on('gis',function(data){
+            console.log(data.gis);
+          })
       </script>
     </body>
     </html>

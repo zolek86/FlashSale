@@ -43,7 +43,7 @@ function ioCallback(response) {
             console.log('sending GIS event to user: '+ self.socketId);
             self.io.sockets.connected[self.socketId].gis = gis;
             self.io.sockets.connected[self.socketId].emit(GIS_EVENT_NAME,{
-                error: true,
+                error: false,
                 gis: gis
             });
             tempCallback(gis);

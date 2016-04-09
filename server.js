@@ -18,10 +18,6 @@ io.on('connection', function(socket){
             socket.gis = gis;
             console.log(socket.gis);
         };
-        // location.getLocation(callback, {
-        //         postalCode: "59-300",
-        //         city: "Lubin"
-        // });
         location.getLocation(callback, data);
     });
 
