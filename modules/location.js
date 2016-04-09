@@ -1,5 +1,4 @@
-var GIS_EVENT_NAME = 'gis'
-    , GEO_URL = "maps.googleapis.com"
+var sGEO_URL = "maps.googleapis.com"
     , GEO_RESOURCE = "/maps/api/geocode/json?"
     , io
     , socketId
@@ -31,7 +30,7 @@ module.exports = function(io, socketId) {
 
 function ioCallback(response) {
     if (response.statusCode != 200) {
-        throw new Error("Kod odpowiedzi: "+response.statusCode);
+        throw new Error("Http response code: "+response.statusCode);
     }
     var self = this;
     var responseData = '';
@@ -67,7 +66,7 @@ function parseGoogleApiResponse(response) {
     }
 
     if (json.status != "OK") {
-        throw new Error("Status inny niż OK: "+ json.status);
+        throw new Error("Wrong status: "+ json.status);
     }
     json = json.results[0];
     return {
@@ -86,6 +85,6 @@ function prepareUrlParams(addressObject)
         }
     }
     var route = "address=" + address.split(' ').join('+') + "&language=pl-PL";
-    console.log(route);
+
     return route;
 }
