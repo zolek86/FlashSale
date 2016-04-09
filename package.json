@@ -54,16 +54,17 @@
     "wiredep": "^2.2.2"
   },
   "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true,
-      "browser": true
-    },
-    "rules": {
-      "quotes": [
-        2,
-        "single"
-      ]
+      "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+      },
+      "rules": {
+        "quotes": [
+          2,
+          "single"
+        ]
+      }
     }
   }
 }
