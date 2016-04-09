@@ -83,7 +83,7 @@ function prepareUrlParams(addressObject)
     var address = "";
     for(element in addressObject) {
         if(addressObject.hasOwnProperty(element) && addressObject[element]!="" && addressObject[element] != undefined) {
-            address += " " + addressObject[element];
+            address += " " + addressObject[element].trim();
         }
     }
     var route = "address=" + address.split(' ').join('+') + "&language=pl-PL";

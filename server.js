@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var location;
+var location, offers = [];
 
 app.use(express.static(__dirname + '/dev'));
 
@@ -25,6 +25,10 @@ io.on('connection', function(socket){
             }
         };
         location.getLocation(callback, data);
+    });
+
+    socket.on('addOffer',function(data) {
+            
     });
 
     socket.on('disconnect', function(){
