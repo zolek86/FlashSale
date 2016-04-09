@@ -25,9 +25,8 @@ build/Release
 
 # Dependency directory
 node_modules
-
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
+dist
+.tmp
+.sass-cache
+bower_components
+test/bower_components
