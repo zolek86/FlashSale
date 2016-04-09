@@ -19,22 +19,30 @@ var flashSale = {
 	    });
 	},
 	appLocationMsg: function(locationData){
-		
-		var errorMsg = "!!! OMG !!! ERROR !!!",
-			msgSpot = $('#locationMsg');
+		var errorMsg = "<strong>!!! OMG !!! ERROR !!!</strong>",
+			msgSpot = $('#locationMsg'),
+			formSpot = $('#locationForm');
 
 		msgSpot.html('');
 
 		if(locationData.error === false){
-			msgSpot.append(this.appLocationTemplate(locationData.gis.lat, locationData.gis.lng, locationData.gis.location));
+			formSpot.html('');
+			formSpot.html(this.appLocationTemplate(locationData.gis.lat.toFixed(3), locationData.gis.lng.toFixed(3), locationData.gis.location));
+			$('#msgClose').show();
+			$('#findLocation').hide();
+			$('#myModalLabel').text("Odnaleziono!");
 		} else {
-			msgSpot.append(msgSpot);
+			msgSpot.append(errorMsg);
 		}
 	},
 	appLocationTemplate: function(lat,lang,location){
-		return template = "Twoje położenie to: " + lat + " szerokości " + lang + " długości geograficznej<br>" + " adres: " + location;
+		return template = "Twoje położenie to: <br><strong>" + lat + "</strong> szerokości <strong><br>" + lang + "</strong> długości geograficznej<br>" + " adres: <strong>" + location + "</strong>";
 	}
 };
 $(function(){
 	flashSale.init();
+    $('#msgClose').hide();
+});
+$(window).load(function(){
+    $('#conectUser').modal('show');
 });

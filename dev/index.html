@@ -52,9 +52,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-                        class="sr-only">Zamknij</span></button>
-                <h4 class="modal-title" id="myModalLabel">Podaj lokazlizacje</h4>
+                <button id="msgClose" type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Zamknij</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Podaj lokalizację</h4>
             </div>
             <div class="modal-body">
                 <form id="locationForm">
@@ -83,7 +85,7 @@
             </div>
             <div class="modal-footer">
                 <p>
-                  <span id="locationMsg"></span>
+                  <span id="locationMsg" class="msg-info"></span>
                   <a href="#" id="findLocation" class="btn btn-success btn-lg active" role="button">Znajdź</a>
                 </p>
             </div>
