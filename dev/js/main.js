@@ -1,5 +1,5 @@
 var flashSale = {
-	socket: io('http://192.168.1.82:3000'),
+	socket: io('http://192.168.1.32:3000'),
 	init: function(){
 		this.appEvents();
 	},

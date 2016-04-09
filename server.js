@@ -5,7 +5,6 @@ var io = require('socket.io')(http);
 var location, offers = []
     ,areaIntersect = require('./modules/areaIntersect')
     ,MAX_DISTANCE_IN_METERS = 3000
-    ,fileUpload
 ;
 
 app.use(express.static(__dirname + '/dev'));
@@ -32,13 +31,20 @@ io.on('connection', function(socket){
     });
 
     socket.on('addOffer',function(data) {
+        var response = {
+            error: false
+        };
+        if (socket.gis == undefined) {
+            response.error = true
+        }
         offers.append({
             id : socket.id,
             gis: socket.gis,
             name: data.name,
-            category: data.category,
-            photoUrl: fileUpload.upload(data)
+            category: data.category
+            // photoUrl: fileUpload.upload(data)
         });
+        socket.emit('addOffer',response);
     });
 
     socket.on('getOffers',function(data) {
@@ -58,7 +64,8 @@ io.on('connection', function(socket){
             if(areaIntersect.areTwoPointsNotFurtherThatDistance(offer.gis, socket.gis, MAX_DISTANCE_IN_METERS)) {
                 response.data.append({
                     name: offer.name,
-                    photoUrl: offer.photoUrl
+                    price: offer.price
+                    // photoUrl: offer.photoUrl
                 })
             }
         });
